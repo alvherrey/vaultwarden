@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  vaultwarden:
+    container_name: vaultwarden
+    restart: unless-stopped
+    image: vaultwarden/server:latest
+    ports:
+      - 8002:80
+    volumes:
+      - vaultwarden_data:/data
+    networks:
+      - nginx_network
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 5
+        max-size: 10m
+volumes:
+  vaultwarden_data:
+    external: true
+networks:
+  nginx_network:
+    external: true
